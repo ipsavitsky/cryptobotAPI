@@ -64,11 +64,11 @@ func (api *CryptoBotAPI) GetMe() (*GetMeResponse, error) {
 	}
 	var resp struct {
 		Ok     bool          `json:"ok"`
-		Result GetMeResponse `json:"result"`
+		Result GetMeResponse `json:"result,omitempty"`
 		Error  struct {
 			Code int    `json:"code"`
 			Name string `json:"name"`
-		} `json:"error"`
+		} `json:"error,omitempty"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
