@@ -34,7 +34,7 @@ func doRequest(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-func (api *CryptoBotAPI) getBytes(method string, url string) ([]byte, error) {
+func (api *CryptoBotAPI) getCryptoBotResponse(method string, url string) ([]byte, error) {
 	req, err := http.NewRequest(method, url, nil)
 	req.Header.Set("Crypto-Pay-API-Token", api.Api_key)
 	if err != nil {
@@ -57,7 +57,7 @@ func (api *CryptoBotAPI) GetMe() (*GetMeResponse, error) {
 		Host:   api.Options.Host,
 		Path:   "/api/getMe",
 	}
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}

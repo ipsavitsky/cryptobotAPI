@@ -37,7 +37,7 @@ func (api *CryptoBotAPI) GetInvoices() (*[]Invoice, error) {
 		Host:   api.Options.Host,
 		Path:   "/api/getInvoices",
 	}
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (api *CryptoBotAPI) CreateInvoice(asset string, amount string) (*Invoice, e
 	q.Set("asset", asset)
 	q.Set("amount", amount)
 	url.RawQuery = q.Encode()
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}

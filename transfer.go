@@ -30,7 +30,7 @@ func (api *CryptoBotAPI) Transfer(user_id int, asset string, amount string, spen
 	q.Set("amount", amount)
 	q.Set("spend_id", spend_id)
 	url.RawQuery = q.Encode()
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}

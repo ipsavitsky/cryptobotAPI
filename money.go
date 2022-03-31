@@ -23,7 +23,7 @@ func (api *CryptoBotAPI) GetCurrencies() (*[]Currency, error) {
 		Host:   api.Options.Host,
 		Path:   "/api/getCurrencies",
 	}
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (api *CryptoBotAPI) GetBalance() (*[]Balance, error) {
 		Host:   api.Options.Host,
 		Path:   "/api/getBalance",
 	}
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (api *CryptoBotAPI) GetExchangeRates() (*[]ExchangeRate, error) {
 		Host:   api.Options.Host,
 		Path:   "/api/getExchangeRates",
 	}
-	bts, err := api.getBytes("GET", url.String())
+	bts, err := api.getCryptoBotResponse("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
