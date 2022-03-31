@@ -1,5 +1,8 @@
 # CryptoBot API wrapper in golang
-
+[![CodeQL](https://github.com/ipsavitsky/cryptobotAPI/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ipsavitsky/cryptobotAPI/actions/workflows/codeql-analysis.yml)
+[![Go](https://github.com/ipsavitsky/cryptobotAPI/actions/workflows/go.yml/badge.svg)](https://github.com/ipsavitsky/cryptobotAPI/actions/workflows/go.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ipsavitsky/cryptobotAPI)](https://goreportcard.com/report/github.com/ipsavitsky/cryptobotAPI)
+[![Go Reference](https://pkg.go.dev/badge/github.com/ipsavitsky/cryptobotAPI.svg)](https://pkg.go.dev/github.com/ipsavitsky/cryptobotAPI)
 ## Installation
 ```
 go get github.com/ipsavitsky/cryptobotAPI
@@ -27,10 +30,17 @@ func main() {
 }
 ```
 
+## Test
+To run all tests just run:
+```
+go test -v
+```
+
 ## Documentation
-Docs for the wrapper are coming, meanwhile you can consult the API docs [here](https://telegra.ph/Crypto-Pay-API-11-25)
+API docs [here](https://telegra.ph/Crypto-Pay-API-11-25)
+
 
 ## Contributing
 Issues and PRs are welcome
 ## Contact
- - telegram: [@ipsavitsky](https://t.me/ilya_savitsky)
+ - telegram: [@ilya_savitsky](https://t.me/ilya_savitsky)
