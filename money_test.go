@@ -12,6 +12,7 @@ func TestGetCurrency(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getCurrencies").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -94,6 +95,7 @@ func TestGetCurrencyError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getCurrencies").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -121,6 +123,7 @@ func TestGetBalance(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getBalance").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -157,6 +160,7 @@ func TestGetBalanceError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getBalance").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -184,6 +188,7 @@ func TestGetExchangeRates(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getExchangeRates").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -226,6 +231,7 @@ func TestExchangeRatesError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getExchangeRates").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{

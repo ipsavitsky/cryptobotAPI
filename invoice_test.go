@@ -12,6 +12,7 @@ func TestCreateInvoice(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/createInvoice").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		MatchParam("amount", "5").
 		MatchParam("asset", "TON").
 		Reply(200).
@@ -55,6 +56,7 @@ func TestCreateInvoiceError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/createInvoice").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		MatchParam("amount", "5").
 		MatchParam("asset", "TON").
 		Reply(200).
@@ -84,6 +86,7 @@ func TestGetInvoices(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getInvoices").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -151,6 +154,7 @@ func TestGetInvoicesError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getInvoices").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{

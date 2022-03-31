@@ -12,6 +12,7 @@ func TestGetMe(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getMe").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
@@ -41,6 +42,7 @@ func TestGetMeError(t *testing.T) {
 	defer gock.Off()
 	gock.New("https://pay.crypt.bot").
 		Get("/api/getMe").
+		MatchHeader("Crypto-Pay-API-Token", "123312").
 		Reply(200).
 		BodyString(`
 		{
