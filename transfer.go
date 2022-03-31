@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// Transfer structure. Contains information about the transfer
 type Transfer struct {
 	Transfer_id  int    `json:"transfer_id"`
 	User_id      string `json:"user_id"`
@@ -16,6 +17,7 @@ type Transfer struct {
 	Comment      string `json:"comment"`
 }
 
+// Transfer assets from app to user
 func (api *CryptoBotAPI) Transfer(user_id int, asset string, amount string, spend_id string) (*Transfer, error) {
 	url := &url.URL{
 		Scheme: api.Options.Protocol,

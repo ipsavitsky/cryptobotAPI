@@ -43,12 +43,14 @@ func (api *CryptoBotAPI) getBytes(method string, url string) ([]byte, error) {
 	return doRequest(req)
 }
 
+// Response for the getMe method
 type GetMeResponse struct {
 	App_id                          int    `json:"app_id"`
 	Name                            string `json:"name"`
 	Payment_processing_bot_username string `json:"payment_processing_bot_username"`
 }
 
+// Get your app info
 func (api *CryptoBotAPI) GetMe() (*GetMeResponse, error) {
 	url := &url.URL{
 		Scheme: api.Options.Protocol,

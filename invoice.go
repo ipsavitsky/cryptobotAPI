@@ -5,6 +5,7 @@ import (
 	"net/url"
 )
 
+// An invoice structure. Contains invoice id, amount, asset, status, etc.
 type Invoice struct {
 	Ok     bool `json:"ok"`
 	Result struct {
@@ -29,6 +30,7 @@ type Invoice struct {
 	} `json:"result"`
 }
 
+// Gets all your current invoices
 func (api *CryptoBotAPI) GetInvoices() (*[]Invoice, error) {
 	url := &url.URL{
 		Scheme: api.Options.Protocol,
@@ -52,6 +54,7 @@ func (api *CryptoBotAPI) GetInvoices() (*[]Invoice, error) {
 	return &resp.Result.Items, nil
 }
 
+// Create a new invoice
 func (api *CryptoBotAPI) CreateInvoice(asset string, amount string) (*Invoice, error) {
 	url := &url.URL{
 		Scheme: api.Options.Protocol,
