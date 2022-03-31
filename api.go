@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
+	"strconv"
 )
 
 type APIOptions struct {
@@ -28,7 +30,7 @@ func doRequest(req *http.Request) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("%s", body)
 	}
 	return body, nil
@@ -50,7 +52,12 @@ type GetMeResponse struct {
 }
 
 func (api *CryptoBotAPI) GetMe() (*GetMeResponse, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/getMe", api.Options.Protocol, api.Options.Host))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/getMe",
+	}
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +97,12 @@ type Invoice struct {
 }
 
 func (api *CryptoBotAPI) GetInvoices() (*[]Invoice, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/getInvoices", api.Options.Protocol, api.Options.Host))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/getInvoices",
+	}
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +130,12 @@ type Currency struct {
 }
 
 func (api *CryptoBotAPI) GetCurrencies() (*[]Currency, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/getCurrencies", api.Options.Protocol, api.Options.Host))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/getCurrencies",
+	}
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +156,12 @@ type Balance struct {
 }
 
 func (api *CryptoBotAPI) GetBalance() (*[]Balance, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/getBalance", api.Options.Protocol, api.Options.Host))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/getBalance",
+	}
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +184,12 @@ type ExchangeRate struct {
 }
 
 func (api *CryptoBotAPI) GetExchangeRates() (*[]ExchangeRate, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/getExchangeRates", api.Options.Protocol, api.Options.Host))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/getExchangeRates",
+	}
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +215,18 @@ type Transfer struct {
 }
 
 func (api *CryptoBotAPI) Transfer(user_id int, asset string, amount string, spend_id string) (*Transfer, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/transfer?user_id=%d&asset=%s&amount=%s&spend_id=%s", api.Options.Protocol, api.Options.Host, user_id, asset, amount, spend_id))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/transfer",
+	}
+	q := url.Query()
+	q.Set("user_id", strconv.Itoa(user_id))
+	q.Set("asset", asset)
+	q.Set("amount", amount)
+	q.Set("spend_id", spend_id)
+	url.RawQuery = q.Encode()
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +239,16 @@ func (api *CryptoBotAPI) Transfer(user_id int, asset string, amount string, spen
 }
 
 func (api *CryptoBotAPI) CreateInvoice(asset string, amount string) (*Invoice, error) {
-	bts, err := api.getBytes("GET", fmt.Sprintf("%s://%s/api/createInvoice?asset=%s&amount=%s", api.Options.Protocol, api.Options.Host, asset, amount))
+	url := &url.URL{
+		Scheme: api.Options.Protocol,
+		Host:   api.Options.Host,
+		Path:   "/api/createInvoice",
+	}
+	q := url.Query()
+	q.Set("asset", asset)
+	q.Set("amount", amount)
+	url.RawQuery = q.Encode()
+	bts, err := api.getBytes("GET", url.String())
 	if err != nil {
 		return nil, err
 	}
