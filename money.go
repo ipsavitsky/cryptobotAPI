@@ -2,6 +2,7 @@ package cryptobotAPI
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -30,10 +31,17 @@ func (api *CryptoBotAPI) GetCurrencies() (*[]Currency, error) {
 	var resp struct {
 		Ok     bool       `json:"ok"`
 		Result []Currency `json:"result"`
+		Error  struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
+	}
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
 	}
 	return &resp.Result, nil
 }
@@ -58,10 +66,17 @@ func (api *CryptoBotAPI) GetBalance() (*[]Balance, error) {
 	var resp struct {
 		Ok     bool      `json:"ok"`
 		Result []Balance `json:"result"`
+		Error  struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
+	}
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
 	}
 	return &resp.Result, nil
 }
@@ -88,10 +103,17 @@ func (api *CryptoBotAPI) GetExchangeRates() (*[]ExchangeRate, error) {
 	var resp struct {
 		Ok     bool           `json:"ok"`
 		Result []ExchangeRate `json:"result"`
+		Error  struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
+	}
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
 	}
 	return &resp.Result, nil
 }

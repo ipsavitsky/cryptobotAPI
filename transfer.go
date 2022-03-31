@@ -2,6 +2,7 @@ package cryptobotAPI
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 	"strconv"
 )
@@ -34,10 +35,20 @@ func (api *CryptoBotAPI) Transfer(user_id int, asset string, amount string, spen
 	if err != nil {
 		return nil, err
 	}
-	var resp Transfer
+	var resp struct {
+		Ok     bool     `json:"ok"`
+		Result Transfer `json:"result"`
+		Error  struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
+	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
 	}
-	return &resp, nil
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
+	}
+	return &resp.Result, nil
 }

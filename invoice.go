@@ -2,6 +2,7 @@ package cryptobotAPI
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -46,10 +47,17 @@ func (api *CryptoBotAPI) GetInvoices() (*[]Invoice, error) {
 		Result struct {
 			Items []Invoice `json:"items"`
 		} `json:"result"`
+		Error struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
+	}
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
 	}
 	return &resp.Result.Items, nil
 }
@@ -69,10 +77,20 @@ func (api *CryptoBotAPI) CreateInvoice(asset string, amount string) (*Invoice, e
 	if err != nil {
 		return nil, err
 	}
-	var resp Invoice
+	var resp struct {
+		Ok     bool    `json:"ok"`
+		Result Invoice `json:"result"`
+		Error  struct {
+			Code int    `json:"code"`
+			Name string `json:"name"`
+		} `json:"error"`
+	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
 		return nil, err
 	}
-	return &resp, nil
+	if !resp.Ok {
+		return nil, fmt.Errorf("%d: %s", resp.Error.Code, resp.Error.Name)
+	}
+	return &resp.Result, nil
 }
