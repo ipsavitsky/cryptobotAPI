@@ -102,11 +102,11 @@ func (api *CryptoBotAPI) GetExchangeRates() (*[]ExchangeRate, error) {
 	}
 	var resp struct {
 		Ok     bool           `json:"ok"`
-		Result []ExchangeRate `json:"result"`
+		Result []ExchangeRate `json:"result,omitempty"`
 		Error  struct {
 			Code int    `json:"code"`
 			Name string `json:"name"`
-		} `json:"error"`
+		} `json:"error,omitempty"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
