@@ -30,11 +30,11 @@ func (api *CryptoBotAPI) GetCurrencies() (*[]Currency, error) {
 	}
 	var resp struct {
 		Ok     bool       `json:"ok"`
-		Result []Currency `json:"result"`
+		Result []Currency `json:"result,omitempty"`
 		Error  struct {
 			Code int    `json:"code"`
 			Name string `json:"name"`
-		} `json:"error"`
+		} `json:"error,omitempty"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
@@ -65,11 +65,11 @@ func (api *CryptoBotAPI) GetBalance() (*[]Balance, error) {
 	}
 	var resp struct {
 		Ok     bool      `json:"ok"`
-		Result []Balance `json:"result"`
+		Result []Balance `json:"result,omitempty"`
 		Error  struct {
 			Code int    `json:"code"`
 			Name string `json:"name"`
-		} `json:"error"`
+		} `json:"error,omitempty"`
 	}
 	err = json.Unmarshal(bts, &resp)
 	if err != nil {
